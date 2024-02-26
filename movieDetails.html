@@ -37,9 +37,9 @@
     <script>
 
     let movieDetails = [
-      {movie: "1", genre: "Action", details: "This is an action-packed movie.", releaseDate: "2023-01-15", director: "John Doe"},
-      {movie: "2", genre: "Drama", details: "A dramatic story unfolds in this movie.", releaseDate: "2023-03-20", director: "Jane Smith"},
-      {movie: "3", genre: "Comedy", details: "Get ready to laugh with this comedy.", releaseDate: "2023-05-20", director: "Jane Walk"}]
+      {movie: "Movie 1", genre: "Action", details: "This is an action-packed movie.", releaseDate: "2023-01-15", director: "John Doe"},
+      {movie: "Movie 2", genre: "Drama", details: "A dramatic story unfolds in this movie.", releaseDate: "2023-03-20", director: "Jane Smith"},
+      {movie: "Movie 3", genre: "Comedy", details: "Get ready to laugh with this comedy.", releaseDate: "2023-05-20", director: "Jane Walk"}]
 
       //get movie from url
       function getParameterByMovie(movie)
@@ -67,7 +67,7 @@
         movieDetailsElement.innerHTML = `
         <div class="card">
         <div class="card-body">
-        <h2>Movie ${movie.movie}</h2>
+        <h2>${movie.movie}</h2>
         <p class="card-text"><strong>Genre: </strong>${movie.genre}</p>
         <p class="card-text"><strong>Details: </strong>${movie.details}</p>
         <p class="card-text"><strong>Release Date: </strong>${movie.releaseDate}</p>

@@ -26,54 +26,133 @@
       </div>
     </nav>
   </header>
-  <main class="container">
-    <section class="pt-4">
+  <main>
+    <section class="container pt-4">
       <h1>List of Movies</h1>
+      <form>
+        <div class="mb-3">
+          <label for="movieTitle" class="form-label fs-5 fw-normal">Title:</label>
+          <div class="input-group">
+            <input id="movieTitle" type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="movieGenre" class="form-label fs-5 fw-normal">Genre:</label>
+          <div class="input-group">
+            <select id="movieGenre" class="form-control">
+              <option value="Action">Action</option>
+              <option value="Drama">Drama</option>
+              <option value="Comedy">Comedy</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="movieReleaseDate" class="form-label fs-5 fw-normal">Release Date:</label>
+          <div class="input-group">
+            <input id="movieReleaseDate" type="date" class="form-control" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="movieDirector" class="form-label fs-5 fw-normal">Director:</label>
+          <div class="input-group">
+            <input id="movieDirector" type="text" class="form-control" />
+          </div>
+        </div>
+      </form>
     </section>
-    <div class="row">
-      <div class="col-md-6">
-        <section>
-          <div class="card">
-            <div class="card-header">
-              <h2>Movie 1</h2>
-            </div>
-            <div class="card-body">
-              <p class="card-text"><strong>Genre: </strong>Action</p>
-              <a class="btn btn-primary" href="movieDetails.html?movie=1">Details</a>
-            </div>
-          </div>
-        </section>
+    <section class="container">
+      <button id="addMovieButton" type="button" class="btn btn-primary">Add Movie</button>
+    </section>
+    <section class="container mt-4">
+      <div class="row" id="movieList">
+
       </div>
-      <div class="col-md-6">
-        <section>
-          <div class="card">
-            <div class="card-header">
-              <h2>Movie 2</h2>
-            </div>
-            <div class="card-body">
-              <p class="card-text"><strong>Genre: </strong>Drama</p>
-              <a class="btn btn-primary" href="movieDetails.html?movie=2">Details</a>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-    <div class="row pt-3">
-      <div class="col-md-6">
-        <section>
-          <div class="card">
-            <div class="card-header">
-              <h2>Movie 3</h2>
-            </div>
-            <div class="card-body">
-              <p class="card-text"><strong>Genree: </strong>Comedy</p>
-              <a class="btn btn-primary" href="movieDetails.html?movie=3">Details</a>
-            </div>
-          </div>
-      </div>
-      </section>
-    </div>
+    </section>
   </main>
+
+  <script>
+
+    const movieDetails = [
+      {movie: "Movie 1", genre: "Action", details: "This is an action-packed movie.", releaseDate: "2023-01-15", director: "John Doe"},
+      {movie: "Movie 2", genre: "Drama", details: "A dramatic story unfolds in this movie.", releaseDate: "2023-03-20", director: "Jane Smith"},
+      {movie: "Movie 3", genre: "Comedy", details: "Get ready to laugh with this comedy.", releaseDate: "2023-05-20", director: "Jane Walk"}
+    ];
+
+    const addMovieButton = document.querySelector("#addMovieButton");
+    const movieList = document.querySelector("#movieList");
+
+    function updateMovieList() {
+      movieList.innerHTML = '';
+
+      for (let i = 0; i < movieDetails.length; i++) {
+        const col = document.createElement('div');
+        col.className = `col-md-4`;
+
+        const card = document.createElement('div');
+        card.className = `card mb-3`;
+
+        const cardHeader = document.createElement('div');
+        cardHeader.className = `card-header`;
+        const h2 = document.createElement('h2');
+        h2.textContent = `${movieDetails[i].movie}`;
+
+        cardHeader.appendChild(h2);
+
+        const cardBody = document.createElement('div');
+        cardBody.className = `card-body`;
+
+        const genre = document.createElement('p');
+        genre.className = `card-text`;
+        genre.innerHTML = `<strong>Genre: </strong>${movieDetails[i].genre}`
+
+        const releaseDate = document.createElement('p');
+        releaseDate.className = `card-text`;
+        releaseDate.innerHTML = `<strong>Release Date: </strong>${movieDetails[i].releaseDate}`;
+
+        const director = document.createElement('p');
+        director.className = `card-text`;
+        director.innerHTML = `<strong>Director: </strong>${movieDetails[i].director}`;
+
+        const detailsBtn = document.createElement('a');
+        detailsBtn.href = `movieDetails.html?movie=${movieDetails[i].movie}`
+        detailsBtn.className = `btn btn-primary`;
+        detailsBtn.textContent = `Details`;
+
+        cardBody.appendChild(genre);
+        cardBody.appendChild(releaseDate);
+        cardBody.appendChild(director);
+        cardBody.appendChild(detailsBtn);
+
+        card.appendChild(cardHeader);
+        card.appendChild(cardBody);
+
+        col.appendChild(card);
+        movieList.appendChild(col);
+      };
+    };
+
+    addMovieButton.addEventListener("click", addMovie);
+
+    function addMovie() {
+      const movieTitle = document.querySelector("#movieTitle").value;
+      const movieGenre = document.querySelector("#movieGenre").value;
+      const movieReleaseDate = document.querySelector("#movieReleaseDate").value;
+      const movieDirector = document.querySelector("#movieDirector").value;
+
+      const newMovie = {
+        movie: `${movieTitle}`,
+        genre: `${movieGenre}`,
+        releaseDate: `${movieReleaseDate}`,
+        director: `${movieDirector}`
+      }
+
+      movieDetails.push(newMovie);
+      updateMovieList();
+    }
+
+    updateMovieList();
+
+  </script>
 </body>
 
 </html>
