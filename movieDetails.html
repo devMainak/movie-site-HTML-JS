@@ -24,12 +24,12 @@
         </div>
       </nav>
     </header>
-    <main class="container">
-      <section class="pt-4">
+    <main>
+      <section class="container pt-4">
         <h1>Movie Details</h1>
       </section>
-      <section id="movie-details">
-        
+      <section class="container">
+        <div id="movie-details"></div>
       </section>
     </main>
 
@@ -64,20 +64,47 @@
       let movieDetailsElement = document.getElementById('movie-details'); 
       if (movie)
       {
-        movieDetailsElement.innerHTML = `
-        <div class="card">
-        <div class="card-body">
-        <h2>${movie.movie}</h2>
-        <p class="card-text"><strong>Genre: </strong>${movie.genre}</p>
-        <p class="card-text"><strong>Details: </strong>${movie.details}</p>
-        <p class="card-text"><strong>Release Date: </strong>${movie.releaseDate}</p>
-        <p class="card-text"><strong>Director: </strong>${movie.director}</p>
-        </div>
-        </div>`
+        function generateMovieDetailsCard(){
+          const card = document.createElement('div');
+          card.className = `card mt-2 w-75`
+
+          const cardBody = document.createElement('div');
+          cardBody.className = `card-body`;
+
+          const cardTitle = document.createElement('h5');
+          cardTitle.className = `card-title`;
+          cardTitle.textContent = movie.movie;
+
+          const movieGenre = document.createElement('p');
+          movieGenre.className = `card-text`;
+          movieGenre.innerHTML = `<strong>Genre: </strong>${movie.genre}`;
+
+          const movieDetails = document.createElement('p');
+          movieDetails.className = `card-text`;
+          movieDetails.innerHTML = `<strong>Details: </strong>${movie.details}`;
+
+          const movieReleaseDate = document.createElement('p');
+          movieReleaseDate.className = `card-text`;
+          movieReleaseDate.innerHTML = `<strong>Release Date: </strong>${movie.releaseDate}`;
+
+          const movieDirector = document.createElement('p');
+          movieDirector.className = `card-text`;
+          movieDirector.innerHTML = `<strong>Director: </strong>${movie.director}`;
+
+          cardBody.appendChild(cardTitle);
+          cardBody.appendChild(movieGenre);
+          cardBody.appendChild(movieDetails);
+          cardBody.appendChild(movieReleaseDate);
+          cardBody.appendChild(movieDirector);
+
+          card.appendChild(cardBody);
+          movieDetailsElement.appendChild(card);
+        }
+        generateMovieDetailsCard();
       }
       else
       {
-      movieDetailsElement.innerHTML = `<p>Movie Details Not Found!</p>`  
+      movieDetailsElement.innerHTML = `<p>Movie Details Not Found!</p>`;
       }
     </script>
   </body>
