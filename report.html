@@ -26,39 +26,104 @@
       </div>
     </nav>
   </header>
-  <main class="container">
-    <section class="pt-4">
+  <main>
+    <section class="container pt-4">
       <h1>Movie Report</h1>
     </section>
-    <div class="row">
-    <div class="col-md-6">
-    <section>
-      <div class="card">
-      <div class="card-header">
-      <h2>Top-Rated Movie</h2>
-      </div>
-      <div class="card-body">
-      <p class="card-text"><strong>title: </strong>Movie 2</p>
-      <p class="card-text"><strong>rating: </strong>9.2</p>
-      <p class="card-text"><strong>director: </strong>Jane Smith</p>
-      </div>
-        </div>
-    </section>
+    <section class="container">
+    <div class="row" id="movieReportDiv">
+    
     </div>
-    <div class="col-md-6">
-    <section>
-      <div class="card">
-      <div class="card-header">
-      <h2>Most Popular Genre</h2>
-      </div>
-      <div class="card-body">
-        <p class="card-text"><strong>Genre: </strong>Action</p>
-      <p class="card-text"><strong>totalMovies: </strong>3</p>
-      </div>
-        </div>
-    </section>
-      </div>
-    </div>
+      </section>
   </main>
+
+  <script>
+    
+    function generateReport(){
+      const topRatedMovie = {title: "Movie 2", rating: 9.2, director: "Jane Smith"};
+      const mostPopularGenre = {genre: "Action", totalMovies: 3};
+
+      const movieReportDiv = document.querySelector("#movieReportDiv");
+
+      function generateReportCard(report)
+        {
+          if (report !== mostPopularGenre)
+          {
+            const col = document.createElement('div');
+            col.className = `col-md-6`;
+
+            const card = document.createElement('div');
+            card.className = `card mb-3`;
+
+            const cardHeader = document.createElement('h2');
+            cardHeader.className = `card-header`;
+            cardHeader.textContent = "Top-Rated Movie";
+
+            const cardBody = document.createElement('div');
+            cardBody.className = `card-body`;
+
+            const title = document.createElement('p');
+            title.className = `card-text`;
+            title.innerHTML = `<strong>Title: </strong>${report.title}`;
+
+            const rating = document.createElement('p');
+            rating.className = `card-text`;
+            rating.innerHTML = `<strong>Rating: </strong>${report.rating}`;
+
+            const director = document.createElement('p');
+            director.className = `card-text`;
+            director.innerHTML = `<strong>Director: </strong>${report.director}`;
+
+            cardBody.appendChild(title);
+            cardBody.appendChild(rating);
+            cardBody.appendChild(director);
+
+            card.appendChild(cardHeader);
+            card.appendChild(cardBody);
+
+            col.appendChild(card);
+            movieReportDiv.appendChild(col);
+          }
+          else
+          {
+            const col = document.createElement('div');
+            col.className = `col-md-6`;
+
+            const card = document.createElement('div');
+            card.className = `card mb-3`;
+
+            const cardHeader = document.createElement('h2');
+            cardHeader.className = `card-header`;
+            cardHeader.textContent = "Most Popular Genre";
+
+            const cardBody = document.createElement('div');
+            cardBody.className = `card-body`;
+
+            
+            const genre = document.createElement('p');
+            genre.className = `card-text`;
+            genre.innerHTML = `<strong>Genre: </strong>${report.genre}`;
+
+            const totalMovies = document.createElement('p');
+            totalMovies.className = `card-text`;
+            totalMovies.innerHTML = `<strong>Total Movies: </strong>${report.totalMovies}`;
+
+            cardBody.appendChild(genre);
+            cardBody.appendChild(totalMovies);
+
+            card.appendChild(cardHeader);
+            card.appendChild(cardBody);
+
+            col.appendChild(card);
+            movieReportDiv.appendChild(col);
+          }
+        }
+
+      generateReportCard(topRatedMovie);
+      generateReportCard(mostPopularGenre);
+    };
+
+    generateReport();
+  </script>
 </body>
 </html>
