@@ -30,6 +30,37 @@
     <section class="container pt-4">
       <h1>List of Movies</h1>
       <form>
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="filterGenre" class="form-label fw-normal">Filter by Genre:</label>
+              <div class="input-group">
+                <select id="filterGenre" class="form-select">
+                  <option value="all">All Genres</option>
+                  <option value="Action">Action</option>
+                  <option value="Drama">Drama</option>
+                  <option value="Comedy">Comedy</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="filterDirector" class="form-label fw-normal">Filter by Director:</label>
+              <div class="input-group">
+                <select id="filterDirector" class="form-select">
+                  <option value="all">All Directors</option>
+                  <option value="John Doe">John Doe</option>
+                  <option value="Jane Smith">Jane Smith</option>
+                  <option value="Jane Walk">Jane Walk</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h2>Add a New Movie</h2>
+        </div>
         <div class="mb-3">
           <label for="movieTitle" class="form-label fs-5 fw-normal">Title:</label>
           <div class="input-group">
@@ -39,7 +70,7 @@
         <div class="mb-3">
           <label for="movieGenre" class="form-label fs-5 fw-normal">Genre:</label>
           <div class="input-group">
-            <select id="movieGenre" class="form-control">
+            <select id="movieGenre" class="form-select">
               <option value="Action">Action</option>
               <option value="Drama">Drama</option>
               <option value="Comedy">Comedy</option>
@@ -81,10 +112,10 @@
     const addMovieButton = document.querySelector("#addMovieButton");
     const movieList = document.querySelector("#movieList");
 
-    function updateMovieList() {
+    function updateMovieList(movies) {
       movieList.innerHTML = '';
 
-      for (let i = 0; i < movieDetails.length; i++) {
+      for (let i = 0; i < movies.length; i++) {
         const col = document.createElement('div');
         col.className = `col-md-4`;
 
@@ -94,7 +125,7 @@
         const cardHeader = document.createElement('div');
         cardHeader.className = `card-header`;
         const h2 = document.createElement('h2');
-        h2.textContent = `${movieDetails[i].movie}`;
+        h2.textContent = `${movies[i].movie}`;
 
         cardHeader.appendChild(h2);
 
@@ -103,18 +134,18 @@
 
         const genre = document.createElement('p');
         genre.className = `card-text`;
-        genre.innerHTML = `<strong>Genre: </strong>${movieDetails[i].genre}`
+        genre.innerHTML = `<strong>Genre: </strong>${movies[i].genre}`
 
         const releaseDate = document.createElement('p');
         releaseDate.className = `card-text`;
-        releaseDate.innerHTML = `<strong>Release Date: </strong>${movieDetails[i].releaseDate}`;
+        releaseDate.innerHTML = `<strong>Release Date: </strong>${movies[i].releaseDate}`;
 
         const director = document.createElement('p');
         director.className = `card-text`;
-        director.innerHTML = `<strong>Director: </strong>${movieDetails[i].director}`;
+        director.innerHTML = `<strong>Director: </strong>${movies[i].director}`;
 
         const detailsBtn = document.createElement('a');
-        detailsBtn.href = `movieDetails.html?movie=${movieDetails[i].movie}`
+        detailsBtn.href = `movieDetails.html?movie=${movies[i].movie}`
         detailsBtn.className = `btn btn-primary`;
         detailsBtn.textContent = `Details`;
 
@@ -148,9 +179,54 @@
 
       movieDetails.push(newMovie);
       updateMovieList();
-    }
+    };
 
-    updateMovieList();
+    const filterGenre = document.getElementById("filterGenre");
+    filterGenre.addEventListener("change", filterMoviesByGenre);
+
+
+    function filterMoviesByGenre(){
+      const genre = filterGenre.value;
+      const filteredMovies = [];
+       
+      if (genre !== "all") {
+        for (let i = 0; i < movieDetails.length; i++) {
+         
+          if (movieDetails[i].genre === genre) {
+            filteredMovies.push(movieDetails[i]);
+          }
+
+        }
+        updateMovieList(filteredMovies);
+      }
+      else {
+        updateMovieList(movieDetails);
+      };
+    };
+
+    const filterDirector = document.getElementById("filterDirector");
+    filterDirector.addEventListener("change", filterMoviesByDirector);
+
+    function filterMoviesByDirector(){
+      const director = filterDirector.value;
+      const filteredMovies = [];
+    
+      if (director !== "all") {
+        for (let i = 0; i < movieDetails.length; i++) {
+
+          if (movieDetails[i].director === director) {
+            filteredMovies.push(movieDetails[i]);
+          }
+
+        }
+        updateMovieList(filteredMovies);
+      }
+      else {
+        updateMovieList(movieDetails);
+      };
+    };
+
+    updateMovieList(movieDetails);
 
   </script>
 </body>
